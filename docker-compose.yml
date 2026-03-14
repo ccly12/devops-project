@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # --- AMBIENTE DE DESARROLLO ---  
   db-dev:
-    image: postgres:15
+    image: postgres:15 # <--- Usamos la imagen oficial de PostgreSQL versión 15
     restart: always
     environment:
       POSTGRES_USER: myuser
