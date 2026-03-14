@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # --- AMBIENTE DE DESARROLLO ---  
   db-dev:
-    image: postgres:15 # <--- Usamos la imagen oficial de PostgreSQL versión 15
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: myuser
@@ -17,9 +17,9 @@ services:
   backend-dev:
     build: ./backend
     deploy:
-      replicas: 2  # <--- Esto es el Escalamiento Declarativo para Dev
+      replicas: 2 
     ports:
-      - "3000:3000"
+      - "3000"   
     environment:
       DB_HOST: db-dev
       DB_USER: myuser
@@ -44,9 +44,9 @@ services:
   backend-prod:
     build: ./backend
     deploy:
-      replicas: 2  # <--- Esto es el Escalamiento Declarativo para Producción
+      replicas: 1  
     ports:
-      - "80:3000" 
+      - "80:3000"
     environment:
       DB_HOST: db-prod
       DB_USER: myuser
@@ -55,11 +55,12 @@ services:
     depends_on:
       - db-prod
 
+  # --- GESTIÓN ---
   adminer:
     image: adminer
     restart: always  
     ports:
-      - "8081:8080"  # <--- Adminer para ambos entornos, se conecta a db-dev y db-prod
+      - "8081:8080"
 
 volumes:
   db_data_dev:
